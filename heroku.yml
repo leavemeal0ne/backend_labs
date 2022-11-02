@@ -1,0 +1,3 @@
+build:
+ docker:
+   web: /lab1/Dockerfile
