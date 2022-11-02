@@ -1,36 +1,5 @@
 from app import app, jsonify, abort, make_response, request
-# from database import *
-
-USERS = [
-    {
-        'id': 1,
-        'name': 'Ivan'
-    }
-]
-
-CATEGORIES = [
-    {
-        'id': 1,
-        'category_name': 'Food',
-    },
-]
-
-RECORDS = [
-    {
-        'id': 1,
-        'user_id': 1,
-        'category_id': 1,
-        'date_time': '27.10.2022 - 14:20',
-        'total': 100
-    },
-    {
-        'id': 2,
-        'user_id': 1,
-        'category_id': 1,
-        'date_time': '27.10.2022 - 14:20',
-        'total': 100
-    }
-]
+from app.database.database import *
 
 
 @app.errorhandler(404)
@@ -39,13 +8,14 @@ def not_found(error):
 
 
 @app.errorhandler(400)
-def bad_requset(error):
+def bad_request(error):
     return make_response(jsonify({'error': 'Bad request'}), 400)
 
 
 @app.route('/categories', methods=['GET'])
 def get_all_categories():
-        return jsonify({'categories': CATEGORIES})
+    return jsonify({'categories': CATEGORIES})
+
 
 @app.route('/categories/<int:categories_id>', methods=['GET'])
 def get_category(categories_id):
@@ -95,17 +65,17 @@ def create_record():
     if len(users) == 0:
         abort(400)
     record = {
-        'id': RECORDS[-1]['id']+1,
+        'id': RECORDS[-1]['id'] + 1,
         'user_id': request.json.get('user_id'),
         'category_id': request.json.get('category_id'),
         'date_time': request.json.get('date_time'),
         'total': request.json.get('total')
     }
     RECORDS.append(record)
-    return jsonify({'record':record}),201
+    return jsonify({'record': record}), 201
 
 
-@app.route('/records/<int:user_id>', methods = ['GET'])
+@app.route('/records/<int:user_id>', methods=['GET'])
 def get_record_by_user(user_id):
     record_by_user = list(filter(lambda t: t['user_id'] == user_id, RECORDS))
     if len(record_by_user) == 0:
@@ -114,7 +84,7 @@ def get_record_by_user(user_id):
         return jsonify({'records_by_user': record_by_user})
 
 
-@app.route('/records/<int:user_id>/<int:category_id>', methods = ['GET'])
+@app.route('/records/<int:user_id>/<int:category_id>', methods=['GET'])
 def get_record_by_user_and_category(user_id, category_id):
     record_by_user = list(filter(lambda t: t['user_id'] == user_id, RECORDS))
     if len(record_by_user) == 0:
