@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask_smorest import Blueprint, abort
 from flask import request,jsonify
 from flask.views import MethodView
@@ -45,7 +46,7 @@ class Records(MethodView):
             'id': RECORDS[-1]['id'] + 1,
             'user_id': request.json.get('user_id'),
             'category_id': request.json.get('category_id'),
-            'date_time': request.json.get('date_time'),
+            'date_time': datetime.now(),
             'total': request.json.get('total')
         }
         RECORDS.append(record)

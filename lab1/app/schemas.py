@@ -12,5 +12,4 @@ class RecordSchema(Schema):
     id = fields.Int(dump_only=True)
     user_id = fields.Int(required=True)
     category_id = fields.Int(required=True)
-    date_time = fields.Str(required=True)
     total = fields.Float(required=True)
