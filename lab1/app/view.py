@@ -1,5 +1,4 @@
-from app import app, jsonify, abort, make_response, request
-from app.database.database import *
+from app import app
 from flask_smorest import Api
 from app.resources.users import blp as UserBluePrint
 from app.resources.categories import blp as CategoriesBluePrint
