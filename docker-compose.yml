@@ -4,6 +4,9 @@ services:
   lab1:
    restart: always
    build: ./lab1
+   volumes: ["./lab1/app:/lab1"]
+   environment:
+     FLAS_DEBUG: "true"
    ports:
      - "5000:5000"
 
