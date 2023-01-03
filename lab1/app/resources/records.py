@@ -11,20 +11,16 @@ blp = Blueprint("records", __name__,description="Operations on records")
 
 @blp.route('/records/<int:user_id>')
 class Records_By_User(MethodView):
-    @blp.response(200, RecordSchema)
+    @blp.response(200, RecordSchema(many=True))
     def get(self,user_id):
-        x = RecordsModel.query.filter_by(user_id=user_id).all()
-        print(x)
-        return x
+        return RecordsModel.query.filter_by(user_id=user_id).all()
 
 
 @blp.route('/records/<int:user_id>/<int:category_id>')
 class Records_By_User_And_Category(MethodView):
-    @blp.response(200, RecordSchema)
+    @blp.response(200, RecordSchema(many=True))
     def get(self,user_id,category_id):
-        x = RecordsModel.query.filter_by(user_id=user_id,category_id=category_id).all()
-        print(x)
-        return x
+        return RecordsModel.query.filter_by(user_id=user_id,category_id=category_id).all()
 
 @blp.route('/records')
 class Records(MethodView):
@@ -38,7 +34,7 @@ class Records(MethodView):
         except IntegrityError:
             abort(
                 400,
-                message="S"
+                message="Incorrect fields"
             )
         return record
 
