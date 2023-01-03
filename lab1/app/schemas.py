@@ -6,10 +6,10 @@ class UserSchema(Schema):
 
 class CategorySchema(Schema):
     id = fields.Int(dump_only=True)
-    category_name = fields.Str(required=True)
+    name = fields.Str(required=True)
 
 class RecordSchema(Schema):
     id = fields.Int(dump_only=True)
     user_id = fields.Int(required=True)
     category_id = fields.Int(required=True)
-    total = fields.Float(required=True)
+    sum = fields.Float(required=True)
