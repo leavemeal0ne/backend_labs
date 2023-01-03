@@ -5,7 +5,7 @@ from app.schemas import *
 from app.models import *
 from sqlalchemy.exc import IntegrityError
 
-blp = Blueprint("users", __name__, description="Operations on user")
+blp = Blueprint("users", __name__, description="Operations on users")
 
 
 @blp.route("/users/<int:user_id>")

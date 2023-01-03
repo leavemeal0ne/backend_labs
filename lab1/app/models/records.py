@@ -19,8 +19,15 @@ class RecordsModel(db.Model):
         unique=False,
         nullable=False
     )
+    currency_id = db.Column(
+        db.Integer,
+        db.ForeignKey("currencies.id"),
+        nullable=False,
+        default=1)
+
     created_at = db.Column(db.TIMESTAMP, server_default=func.now())
     sum = db.Column(db.Float(precision=2), unique=False, nullable=False)
 
     user = db.relationship("UsersModel", back_populates="record")
     category = db.relationship("CategoriesModel", back_populates="record")
+    currency = db.relationship("CurrenciesModel", back_populates="record")

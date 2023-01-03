@@ -18,7 +18,6 @@ class Categories_id(MethodView):
 class Categories(MethodView):
     @blp.response(200, CategorySchema(many=True))
     def get(self):
-        print(CategoriesModel.query.all())
         return CategoriesModel.query.all()
     @blp.arguments(CategorySchema)
     @blp.response(200, CategorySchema)
@@ -30,7 +29,7 @@ class Categories(MethodView):
         except IntegrityError:
             abort(
                 400,
-                message="This category   already exist"
+                message="This category already exist"
             )
 
         return category

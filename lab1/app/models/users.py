@@ -5,5 +5,11 @@ class UsersModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True, nullable=False)
+    currency_id = db.Column(
+        db.Integer,
+        db.ForeignKey("currencies.id"),
+        nullable=False,
+        default=1)
 
     record = db.relationship("RecordsModel",back_populates="user", lazy="dynamic")
+    currency = db.relationship("CurrenciesModel", back_populates="user")

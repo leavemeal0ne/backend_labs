@@ -34,7 +34,7 @@ class Records(MethodView):
         except IntegrityError:
             abort(
                 400,
-                message="Incorrect fields"
+                message="Incorrect fields "
             )
         return record
 
