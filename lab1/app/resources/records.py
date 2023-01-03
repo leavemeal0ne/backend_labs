@@ -10,6 +10,7 @@ blp = Blueprint("records", __name__,description="Operations on records")
 
 @blp.route('/records/<int:user_id>')
 class Records_By_User(MethodView):
+    @blp.response(200, RecordSchema)
     def get(self,user_id):
         record_by_user = list(filter(lambda t: t['user_id'] == user_id, RECORDS))
         if len(record_by_user) == 0:
@@ -20,6 +21,7 @@ class Records_By_User(MethodView):
 
 @blp.route('/records/<int:user_id>/<int:category_id>')
 class Records_By_User_And_Category(MethodView):
+    @blp.response(200, RecordSchema)
     def get(self,user_id,category_id):
         record_by_user = list(filter(lambda t: t['user_id'] == user_id, RECORDS))
         if len(record_by_user) == 0:
@@ -33,6 +35,7 @@ class Records_By_User_And_Category(MethodView):
 @blp.route('/records')
 class Records(MethodView):
     @blp.arguments(RecordSchema)
+    @blp.response(200, RecordSchema)
     def post(self,user_data):
         if not request.json:
             abort(404)

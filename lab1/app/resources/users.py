@@ -7,11 +7,14 @@ blp = Blueprint("users", __name__,description="Operations on user")
 
 @blp.route("/users/<int:user_id>")
 class Users_id(MethodView):
+    @blp.response(200, UserSchema)
     def get(self,user_id):
         try:
             return USERS[user_id]
         except KeyError:
             abort(404,message="User not found")
+
+    @blp.response(200, UserSchema)
     def delete(self,user_id):
         try:
             del_user = USERS[user_id]
@@ -22,9 +25,12 @@ class Users_id(MethodView):
 
 @blp.route("/users")
 class UserList(MethodView):
+    @blp.response(200, UserSchema(many=True))
     def get(self):
         return list(USERS.values)
+
     @blp.arguments(UserSchema)
+    @blp.response(200,UserSchema)
     def post(self,user_data):
         if request.json["name"] in [u["name"] for u in USERS]:
             abort(400, message="This name is already exist")
