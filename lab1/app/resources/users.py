@@ -1,14 +1,12 @@
-import datetime
 
-import jwt
 from flask import request, jsonify
 from flask_jwt_extended import create_access_token, jwt_required
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
 from passlib.handlers.pbkdf2 import pbkdf2_sha256
-from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import app
+
+
 from app.database.database import *
 from app.schemas import *
 from app.models import *

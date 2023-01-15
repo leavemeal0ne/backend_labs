@@ -1,9 +1,5 @@
 import os
-from functools import wraps
-
-import jwt
-from flask import Flask, request, jsonify
-
+from flask import Flask
 from app.database.database import db
 from app.models import UsersModel
 
