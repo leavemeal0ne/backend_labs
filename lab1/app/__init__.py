@@ -1,6 +1,11 @@
-from flask import Flask
+import os
+from functools import wraps
+
+import jwt
+from flask import Flask, request, jsonify
 
 from app.database.database import db
+from app.models import UsersModel
 
 app = Flask(__name__)
 
@@ -13,5 +18,6 @@ app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
 app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 
 from app import view
